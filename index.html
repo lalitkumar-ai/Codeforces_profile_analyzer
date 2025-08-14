@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF-Scope - Codeforces Profile Explorer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-terminal"></i>
+                    <span>CF-Scope</span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="search-section">
+                <div class="search-container glass">
+                    <h1 class="search-title">Discover Codeforces Profiles</h1>
+                    <p class="search-subtitle">Enter a Codeforces handle to explore their competitive programming journey</p>
+                    
+                    <div class="search-box">
+                        <div class="search-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="usernameInput" 
+                                placeholder="Enter Codeforces handle..."
+                                class="search-input"
+                                autocomplete="off"
+                            >
+                            <button class="search-btn" id="searchBtn" aria-label="Search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p>Fetching profile data...</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p id="errorText"></p>
+            </div>
+
+            <section class="profile-section" id="profileSection">
+                <!-- Profile Card -->
+                <div class="profile-card glass">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img id="userAvatar" src="https://placehold.co/120x120/0f0f23/94a3b8?text=CF" alt="User Avatar">
+                            <div class="avatar-ring"></div>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="userName" class="profile-name">Name</h2>
+                            <p id="userLogin" class="profile-username">@handle</p>
+                            <p id="userBio" class="profile-bio">Rank will appear here</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-star"></i>
+                            <div class="stat-content">
+                                <span id="userRating" class="stat-number">0</span>
+                                <span class="stat-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="stat-content">
+                                <span id="userMaxRating" class="stat-number">0</span>
+                                <span class="stat-label">Max Rating</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-user-friends"></i>
+                            <div class="stat-content">
+                                <span id="userFriends" class="stat-number">0</span>
+                                <span class="stat-label">Friends</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-item" id="locationDetail" style="display: none;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="userLocation"></span>
+                        </div>
+                        <div class="detail-item" id="companyDetail" style="display: none;">
+                            <i class="fas fa-building"></i>
+                            <span id="userCompany"></span>
+                        </div>
+                         <!-- Website detail is hidden by JS for Codeforces -->
+                        <div class="detail-item" id="websiteDetail" style="display: none;">
+                            <i class="fas fa-link"></i>
+                            <a id="userWebsite" href="" target="_blank"></a>
+                        </div>
+                        <div class="detail-item" id="joinedDetail">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="userJoined">Joined...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Stats Card -->
+                <div class="stats-card glass">
+                    <h3 class="card-title">
+                        <i class="fas fa-code"></i>
+                        Top Languages
+                    </h3>
+                    <div class="language-stats" id="languageStats">
+                        <p>No language data available</p>
+                    </div>
+                </div>
+
+                <!-- Submission Stats Card -->
+                <div class="activity-card glass">
+                    <h3 class="card-title">
+                        <i class="fas fa-tasks"></i>
+                        Submission Stats
+                    </h3>
+                    <div class="activity-content">
+                        <div class="activity-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Total Submissions: <span id="totalSubmissions">0</span></span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Problems Solved: <span id="solvedProblems">0</span></span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-percentage"></i>
+                            <span>Success Rate: <span id="successRate">0%</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Submissions Card (UPDATED with full-width-card class) -->
+                <div class="repos-card glass full-width-card">
+                    <h3 class="card-title">
+                        <i class="fas fa-history"></i>
+                        Recent Submissions
+                    </h3>
+                    <div class="repos-grid" id="reposGrid">
+                        <p>No submissions found</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CF-Scope. Explore Codeforces profiles with style Made By lalitkumar-ai.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
