@@ -4,7 +4,7 @@ A simple GitHub profile explorer with glassmorphism design.
 
 ## Features
 
-- Search GitHub users
+- Search Codeforces users
 - View profile information
 - See repositories and languages
 - Dark/Light theme toggle
@@ -19,7 +19,7 @@ A simple GitHub profile explorer with glassmorphism design.
 
 2. Open `index.html` in your browser
 
-3. Enter a GitHub username and search
+3. Enter a Codeforces username and search
 
 ## Technologies
 
